@@ -10,3 +10,8 @@
 
 4. Sub-Query
 
+
+## Projects
+
+### 1. Exploring Deforestation[WIP]:
+Understanding which countries and regions around th world have seen a reduction in forest size over the years
