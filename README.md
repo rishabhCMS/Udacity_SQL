@@ -41,5 +41,5 @@
 
 ## Projects
 
-### 1. Exploring Deforestation[WIP]:
+### 1. [Exploring Deforestation](https://github.com/rishabhCMS/SQL_Deforestation_project):
 Understanding which countries and regions around th world have seen a reduction in forest size over the years
