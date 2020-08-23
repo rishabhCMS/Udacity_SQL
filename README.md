@@ -40,7 +40,7 @@
 
 ## Management of Relational & Non-Relational Databases (Course 2)
 
-### Normalizing data (Lesson 2)
+### A. Normalizing data (Lesson 2)
 
 **1. What makes data denormalized?**
 
@@ -100,7 +100,57 @@
 
 ![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/NormalzingImages/Glossary.png)
     
-            
+### A. Data Definition Language (DDL) (Lesson 3)         
+
+**1. Creating Tables**
+
+````sql
+CREATE TABLE "students" (
+                        "first_name" VARCHAR,
+                        "last_name" VARCHAR,
+                        "age" INTEGER,
+                        "roll_no" INTEGER
+                        )
+````
+
+**2. Numeric Data Types**
+
+    -Numeric types consist of two-, four-, and eight-byte integers, four- and eight-byte floating-point number
+        - INTEGER type store whole numbers, that is, numbers without fractional components, of various ranges.
+            - SMALLINT : -32768 to +32767
+            - INTEGER : -2147483648 to +2147483647
+            - BIGINT : -9223372036854775808 to +9223372036854775807
+        - Arbitrary Precision 
+            -INEXACT:
+                - NUMERIC can store numbers with a very large number of digits. NUMERIC(precision, scale)
+                - DECIMAL up to 131072 digits before the decimal point; up to 16383 digits after the decimal point
+        - Floating-Point : 
+            -EXACT
+                - REAL : 6 decimal digits precision
+                - DOUBLE PRECISION :15 decimal digits precision
+        - Serial : used for creating unique auto-increment identifiers 
+        
+**3. Text Data Types**
+    
+    -Variable length with Limit
+        - CHARACTER VARYING(n)
+        - VARCHAR(n)
+    -fixed-length, blank padded
+        - CHARACTER(n)
+        - CHAR(n)
+    -variable unlimited length
+        - TEXT
+**4. DATE/TIME Date Types**
+        
+**5. Other Data Types**
+        
+        - JSON
+        - ARRAYS
+        - Geometry
+
+**6. Modifying Table Structure**
+
+**7. Other DDL commands**
 
 ## Projects
 
