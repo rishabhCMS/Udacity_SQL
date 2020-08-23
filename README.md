@@ -2,42 +2,104 @@
 
 ## SQL Basics Learned
 
-1. SQL SELECT, FROM statements, WHERE, HAVING , IN , LIKE clauses, LOGICAL AND, OR operations
+**1. SQL SELECT, FROM statements, WHERE, HAVING , IN , LIKE clauses, LOGICAL AND, OR operations**
 
-2. SQL JOINS, Primary keys, Foreign Keys
+**2. SQL JOINS, Primary keys, Foreign Keys**
 
-3. Data Aggreagation functions , SUM, AVG, COUNT, and GROUP BY Clause
+**3. Data Aggreagation functions , SUM, AVG, COUNT, and GROUP BY Clause**
 
-4. Sub-Query
+**4. Sub-Query**
 
-    a. INLINE Sub-query
+    - INLINE Sub-query
   
-    b. Nested
+    - Nested
   
-    c. WITH
+    - WITH
   
-    d. SCALAR sub-query
+    - SCALAR sub-query
   
-5. Data Cleaning Functions
+**5. Data Cleaning Functions**
 
-    a. LEFT(String, # of charaters) Extracts a number of characters from a string starting from the left
+    - LEFT(String, # of charaters) Extracts a number of characters from a string starting from the left
   
-    b. RIGHT(String, # of Charaters) Extracts a number of characters from a string starting from the right
+    - RIGHT(String, # of Charaters) Extracts a number of characters from a string starting from the right
   
-    c. CONCAT(String1, String2...) Concatenates given strings into one string
+    - CONCAT(String1, String2...) Concatenates given strings into one string
   
-    d. COALESCE(col1, col2, ...) returns the for non-null entry for a column
+    - COALESCE(col1, col2, ...) returns the for non-null entry for a column
   
-    e. STRPOS(String, Sub-String) returns the position of the first occurence of a sub-string in a string
+    - STRPOS(String, Sub-String) returns the position of the first occurence of a sub-string in a string
   
-    f. SUBSTR(String, start, length) Gets the sub-string from the given string, with a start pos and length of sub-string in the given string  
+    - SUBSTR(String, start, length) Gets the sub-string from the given string, with a start pos and length of sub-string in the given string  
 
-    g. POSISTION(Sub-string IN String) erturns the position of the first occurence of a sub-string in a string
+    - POSISTION(Sub-string IN String) erturns the position of the first occurence of a sub-string in a string
 
-    h. CAST( col_name AS data_type) Changes the data type of a given column
+    - CAST( col_name AS data_type) Changes the data type of a given column
     
-    i. REPLACE(col, "a","b") replaces char in the columns
+    - REPLACE(col, "a","b") replaces char in the columns
 
+## Management of Relational & Non-Relational Databases (Course 2)
+
+### Normalizing data (Lesson 2)
+
+**1. What makes data denormalized?**
+
+    - inconsistent data-types in a column
+    
+    - repeating columns
+    
+    - repeating values in a column
+    
+**2. Pitfalls of denormalized data**
+
+    - Incosistent data types in a column affect out ability to reason and make sense of data.
+    
+    - Repeating values in a column affect our ability to manipulate and query the data.
+    
+    - Inabilty to uniquely identify a row to target them for data manipulation.
+    
+    - Irrelevant dependencies causing repetitions and anomalies
+    
+    - Repeated columns, which disable us from scaling the number of items of related data
+    
+**3. How to normalize data?**
+
+    - First Normal Form 1NF
+    
+        - Make all values in a column of a single data-type.
+        
+        - Make sure each cell contains a single value.
+            - if multiple values in a column are disjoint, make separate columns for both values
+            - if multiple values in a column are of same type, then make duplicate rows for each value.
+        
+        - Make sure there are no repeating columns of the same data-type
+            - go through each row in that column to make sure they are consistent (same data-type)
+        
+        - Make sure that each row of data can be uniquely identified by a column or a combination of columns
+        
+    - Second Normal Form 2NF
+        
+        - Bring table to 1NF
+        
+        - Remove Partial dependencies
+            - a column is said to be a partial dependency if
+                - it is not part of the Primary Key (PK)
+                - depends on one part of the PK (example: if PK (col1,col2) and col3 depends only on col2, then col3 is a partial dependency)
+    
+    - Third Normal Form 3NF
+    
+        - Bring table to 2NF
+        
+        - Remove transitive dependencies
+            - a column is a said to be a transitive dependency if 
+                - When a column is not part of the Primary Key (PK).
+                - But, depends on the PK through another key (example: if col is PK, col3 depends on col2 and col2 depends on col1, then col3 is transitive dependency
+    
+    - When not to Normalize?
+        - When you like you have to a lot of joins to get the original data schema
+        
+    
+            
 
 ## Projects
 
