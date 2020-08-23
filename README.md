@@ -152,8 +152,36 @@ CREATE TABLE "students" (
 
 **6. Modifying Table Structure**
 
+````sql
+CREATE TABLE "customers" (
+    id SERIAL,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    phone_number VARCHAR
+);
+
+ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
+````
+
 **7. Other DDL commands**
 
+    - DROP: completely removes the table from DB [DON'T DO THIS EVER!]
+        - ````sql DROP TABLE "table_name" ````
+    - TRUNCATE : empties the table entries while ratining the table structure
+        - ````sql TRUNCATE TABLE "table_name" RESTART IDENTITY ````
+        - RESTART IDENTITY helps in resetting the index for new entries
+    - COMMENT : add comment to a column
+        - ````sql COMMENT ON COLUMN "table_name"."col_name" IS "write your comment"````
+        - to see the comment in sql terminal use "\d+"
+**8. Other Special commands**
+
+    - \dt : to see all tables in DB
+    - \d table_name : to see the decription of the table
+    - ctrl + L : clear the screen
+**9. Glossary**
+
+![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DDLImages/glossary.png)
+    
 ## Projects
 
 ### 1. [Exploring Deforestation](https://github.com/rishabhCMS/SQL_Deforestation_project):
