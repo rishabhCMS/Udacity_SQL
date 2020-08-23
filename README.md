@@ -1,4 +1,8 @@
 # Udacity_SQL_Nanodegree 
+## Projects
+
+### 1. [Exploring Deforestation](https://github.com/rishabhCMS/SQL_Deforestation_project):
+Understanding which countries and regions around the world have seen a reduction in forest size over the years
 
 ## SQL Basics Learned
 
@@ -182,7 +186,4 @@ ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
 
 ![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DDLImages/glossary.png)
     
-## Projects
 
-### 1. [Exploring Deforestation](https://github.com/rishabhCMS/SQL_Deforestation_project):
-Understanding which countries and regions around th world have seen a reduction in forest size over the years
