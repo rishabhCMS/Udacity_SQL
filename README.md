@@ -141,6 +141,8 @@ CREATE TABLE "students" (
     -variable unlimited length
         - TEXT
 **4. DATE/TIME Date Types**
+
+![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DDLImages/datetime.png)
         
 **5. Other Data Types**
         
