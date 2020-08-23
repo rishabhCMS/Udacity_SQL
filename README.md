@@ -97,7 +97,8 @@
     
     - When not to Normalize?
         - When you like you have to a lot of joins to get the original data schema
-        
+
+![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/NormalzingImages/Glossary.png)
     
             
 
