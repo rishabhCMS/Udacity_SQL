@@ -186,4 +186,4 @@ ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
 
 ![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DDLImages/glossary.png)
     
-
+### A. Data Manipulation Language (DML) (Lesson 4) 
