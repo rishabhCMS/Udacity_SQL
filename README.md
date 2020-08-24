@@ -191,6 +191,7 @@ ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
 
 **1. [Inserting](https://www.postgresql.org/docs/9.6/sql-insert.html) Data in postgres**
 
+**A. First Form**
 - Imagine that below is the schema of your 
 
 ![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/schema.png)
@@ -216,3 +217,20 @@ INSERT INTO "movies" ("id", "name", "release_date") VALUES
     (DEFAULT, 'chak de India', '2007-08-10'),
     (DEFAULT, 'bhaag milkha bhaag', '2013-07-12')
 ````
+**B. Second Form**
+
+````sql
+SELECT * FROM posts
+````
+![table name post ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/posttable.png)
+
+- we want to create a new table named "categories" to take distinct values from the above table
+
+````sql
+CREATE TABLE "categories" (
+    "id" SERIAL,
+    "name" VARCHAR);
+````
+![category name post ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/cattable.png)
+
+
