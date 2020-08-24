@@ -189,7 +189,7 @@ ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
     
 ### A. Data Manipulation Language (DML) (Lesson 4) 
 
-**1. Inserting Data in postgres**
+**1. [Inserting](https://www.postgresql.org/docs/9.6/sql-insert.html) Data in postgres**
 
 - Imagine that below is the schema of your 
 
