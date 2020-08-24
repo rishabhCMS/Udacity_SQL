@@ -236,6 +236,6 @@ CREATE TABLE "categories" (
 - we want to first get distinct entries from "posts" in the "name" column, and then insert those to "name" column in "categories" table
 
 ````sql
-INSERT INTO "categories" ("name") SELECT DISTINCT "category" FROM "posts"
+INSERT INTO "categories" ("name") SELECT DISTINCT "name" FROM "posts"
 ````
 ![table name category ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/insrtdinto.png)
