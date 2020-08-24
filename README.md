@@ -231,6 +231,11 @@ CREATE TABLE "categories" (
     "id" SERIAL,
     "name" VARCHAR);
 ````
-![category name post ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/cattable.png)
+![table name category ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/cattable.png)
 
+- we want to first get distinct entries from "posts" in the "name" column, and then insert those to "name" column in "categories" table
 
+````sql
+INSERT INTO "categories" ("name") SELECT DISTINCT "category" FROM "posts"
+````
+![table name category ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/insrtdinto.png)
