@@ -182,8 +182,37 @@ ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
     - \dt : to see all tables in DB
     - \d table_name : to see the decription of the table
     - ctrl + L : clear the screen
+    - TABLE table_name : for seeing the content of the tables
 **9. Glossary**
 
 ![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DDLImages/glossary.png)
     
 ### A. Data Manipulation Language (DML) (Lesson 4) 
+
+**1. Inserting Data in postgres**
+
+- Imagine that below is the schema of your 
+
+![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/schema.png)
+
+**method 1**
+- since ID column is serial you don't need to give values for it
+````sql
+INSERT INTO "movies" ("name", "release_date") VALUES
+    ('chak de India', '2007-08-10'),
+    ('bhaag milkha bhaag', '2013-07-12')
+````
+**method 2**
+- you can also give values for a column of type SERIAL
+````sql
+INSERT INTO "movies" ("id", "name", "release_date") VALUES
+    (1, 'chak de India', '2007-08-10'),
+    (2, 'bhaag milkha bhaag', '2013-07-12')
+````
+**method 3**
+- you can also use DEFAULT keyword for column of type SERIAL
+````sql
+INSERT INTO "movies" ("id", "name", "release_date") VALUES
+    (DEFAULT, 'chak de India', '2007-08-10'),
+    (DEFAULT, 'bhaag milkha bhaag', '2013-07-12')
+````
