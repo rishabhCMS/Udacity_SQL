@@ -260,3 +260,7 @@ INSERT INTO "people_emails" ("person_id", "email_address")
 ````
 ![people table ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/peopletable.png)
 ![people_emails table ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/people_emails.png)
+
+**2. [Updating](https://www.postgresql.org/docs/9.6/sql-update.html) Data in postgres**
+
+
