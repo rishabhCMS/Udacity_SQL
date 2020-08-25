@@ -242,7 +242,9 @@ INSERT INTO "categories" ("name") SELECT DISTINCT "name" FROM "posts"
 
 - Exercise solution
     - tables in the DB
+    
 ![schema ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/exerciseschema.png)
+
 ````sql
 INSERT INTO "people" ("first_name", "last_name") 
     SELECT "first_name", "last_name" FROM "denormalized_people";
