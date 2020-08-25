@@ -164,7 +164,7 @@ CREATE TABLE "customers" (
     phone_number VARCHAR
 );
 
-ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
+ALTER TABLE "students" ADD COLUMN "email_address" SET DATA TYPE VARCHAR;
 ````
 
 **7. Other DDL commands**
