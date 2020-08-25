@@ -239,3 +239,22 @@ CREATE TABLE "categories" (
 INSERT INTO "categories" ("name") SELECT DISTINCT "name" FROM "posts"
 ````
 ![table name category ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/insrtdinto.png)
+
+- Exercise solution
+    - tables in the DB
+![schema ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/exerciseschema.png)
+````sql
+INSERT INTO "people" ("first_name", "last_name") 
+    SELECT "first_name", "last_name" FROM "denormalized_people";
+````   
+![dntable ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/dntable.png)
+````sql   
+INSERT INTO "people_emails" ("person_id", "email_address")   
+    SELECT "p"."id", 
+            regexp_split_to_table("dn"."emails",',') 
+    FROM "denormalized_people" "dn"
+    JOIN "people" "p"
+    ON ("p"."first_name" = "dn"."first_name" AND "p"."last_name" = "dn"."last_name");
+````
+![people table ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/peopletable.png)
+![people_emails table ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/people_emails.png)
