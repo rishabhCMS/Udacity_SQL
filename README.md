@@ -263,4 +263,6 @@ INSERT INTO "people_emails" ("person_id", "email_address")
 
 **2. [Updating](https://www.postgresql.org/docs/9.6/sql-update.html) Data in postgres**
 
-
+````sql
+UPDATE "table_name" SET "col1"="val1", ..... WHERE ...
+````
