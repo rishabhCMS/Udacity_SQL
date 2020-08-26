@@ -164,7 +164,7 @@ CREATE TABLE "customers" (
     phone_number VARCHAR
 );
 
-ALTER TABLE "students" ALTER COLUMN "email_address" SET DATA TYPE VARCHAR;
+ALTER TABLE "students" ADD COLUMN "email_address" SET DATA TYPE VARCHAR;
 ````
 
 **7. Other DDL commands**
@@ -239,3 +239,77 @@ CREATE TABLE "categories" (
 INSERT INTO "categories" ("name") SELECT DISTINCT "name" FROM "posts"
 ````
 ![table name category ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/insrtdinto.png)
+
+- Exercise solution
+    - tables in the DB
+    
+![schema ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/exerciseschema.png)
+
+````sql
+INSERT INTO "people" ("first_name", "last_name") 
+    SELECT "first_name", "last_name" FROM "denormalized_people";
+````   
+![dntable ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/dntable.png)
+````sql   
+INSERT INTO "people_emails" ("person_id", "email_address")   
+    SELECT "p"."id", 
+            regexp_split_to_table("dn"."emails",',') 
+    FROM "denormalized_people" "dn"
+    JOIN "people" "p"
+    ON ("p"."first_name" = "dn"."first_name" AND "p"."last_name" = "dn"."last_name");
+````
+![people table ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/peopletable.png)
+![people_emails table ](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/people_emails.png)
+
+**2. [Updating](https://www.postgresql.org/docs/9.6/sql-update.html) Data in postgres**
+
+````sql
+UPDATE "table_name" SET "col1"="val1", ..... WHERE ...
+````
+
+    - quick trick
+    ````sql
+    SELECT SUBSTR(col,1) || 'abc' FROM table_name
+    -- this will add the string 'abc' to the end of each column
+    ````
+
+    - if you have col for date as text type, 
+    you can convert that to interval type and extract date
+    
+    ````sql
+    SELECT (CURRENT_TIMESTAMP - "Born_ago"::INTERVAL)::DATE FROM people
+    ````
+    
+    video(https://youtu.be/1BedkII_V9w)
+    
+    ````sql
+    -- Update the last_name column to be capitalized
+    UPDATE "people" SET "last_name" =
+      SUBSTR("last_name", 1, 1) ||
+      LOWER(SUBSTR("last_name", 2));
+
+    -- Change the born_ago column to date_of_birth
+    ALTER TABLE "people" ADD column "date_of_birth" DATE;
+
+    UPDATE "people" SET "date_of_birth" = 
+      (CURRENT_TIMESTAMP - "born_ago"::INTERVAL)::DATE;
+
+    ALTER TABLE "people" DROP COLUMN "born_ago";
+    ````
+
+**2. [Deleting](https://www.postgresql.org/docs/9.6/sql-delete.html) Data in postgres**
+
+**Basic Syntax**
+
+````sql
+DELETE FROM table_name WHERE...
+````
+
+````sql
+-- Extracting year from date column
+select date_part('year', your_column) from your_table;
+
+--OR
+
+select extract(year from your_column) from your_table;
+````
