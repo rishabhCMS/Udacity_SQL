@@ -266,3 +266,9 @@ INSERT INTO "people_emails" ("person_id", "email_address")
 ````sql
 UPDATE "table_name" SET "col1"="val1", ..... WHERE ...
 ````
+
+    - quick trick
+    ````sql
+    SELECT SUBSTR(col,1) || 'abc' FROM table_name
+    -- this will add the string 'abc' to the end of each column
+    ````
