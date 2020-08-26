@@ -313,3 +313,4 @@ select date_part('year', your_column) from your_table;
 
 select extract(year from your_column) from your_table;
 ````
+![quiz img](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/quiz.png)
