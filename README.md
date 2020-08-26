@@ -296,3 +296,20 @@ UPDATE "table_name" SET "col1"="val1", ..... WHERE ...
 
     ALTER TABLE "people" DROP COLUMN "born_ago";
     ````
+
+**2. [Deleting](https://www.postgresql.org/docs/9.6/sql-delete.html) Data in postgres**
+
+**Basic Syntax**
+
+````sql
+DELETE FROM table_name WHERE...
+````
+
+````sql
+-- Extracting year from date column
+select date_part('year', your_column) from your_table;
+
+--OR
+
+select extract(year from your_column) from your_table;
+````
