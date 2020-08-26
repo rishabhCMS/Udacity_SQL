@@ -272,3 +272,27 @@ UPDATE "table_name" SET "col1"="val1", ..... WHERE ...
     SELECT SUBSTR(col,1) || 'abc' FROM table_name
     -- this will add the string 'abc' to the end of each column
     ````
+
+    - if you have col for date as text type, 
+    you can convert that to interval type and extract date
+    
+    ````sql
+    SELECT (CURRENT_TIMESTAMP - "Born_ago"::INTERVAL)::DATE FROM people
+    ````
+    
+    video(https://youtu.be/1BedkII_V9w)
+    
+    ````sql
+    -- Update the last_name column to be capitalized
+    UPDATE "people" SET "last_name" =
+      SUBSTR("last_name", 1, 1) ||
+      LOWER(SUBSTR("last_name", 2));
+
+    -- Change the born_ago column to date_of_birth
+    ALTER TABLE "people" ADD column "date_of_birth" DATE;
+
+    UPDATE "people" SET "date_of_birth" = 
+      (CURRENT_TIMESTAMP - "born_ago"::INTERVAL)::DATE;
+
+    ALTER TABLE "people" DROP COLUMN "born_ago";
+    ````
