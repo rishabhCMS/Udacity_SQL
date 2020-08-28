@@ -322,3 +322,23 @@ select extract(year from your_column) from your_table;
 A large portion of interactions with a database don't happen with a human using the psql command line, but instead through application code. When interacting with Postgres through its command line, a feature called AUTOCOMMIT is automatically enabled. This feature makes it so that every command you run is wrapped in a transaction. It's possible to turn off this feature by executing \set AUTOCOMMIT off from the psql command line.
 
 In the case where AUTOCOMMIT is off, or in the case where the database is being interacted with through application code, starting a transaction is achieved using the START TRANSACTION or BEGIN commands, which are equivalent. Any commands executed after this will be run in isolation from any other transactions. If the application — or the psql program — crashes at any point, all the commands will be discarded. We can also manually discard all the commands executed after starting a transaction by running ROLLBACK. In order to make the changes permanent, one has to execute the command COMMIT or END, which are equivalent.
+
+````sql
+\set AUTOCOMMIT off; -- turing off the psql auto commit to test some transaction methods
+
+COMMIT; --to commit transactions manually
+````
+
+````sql
+setting up a transaction manually
+BEGIN;
+
+INSERT INTO "users", "state", "date_of_birth") VALUES
+    ('users', 'CA', '2008-05-01');  -- a small transaction
+
+COMMIT;
+````
+
+- If you are exploring a new database that you're not familiar with and would like to see the effect of running some DML queries, make sure that you \set AUTOCOMMIT off before. You'll be in a much safer position, and any mistakes you make can be manually rolled back using the ROLLBACK command.
+
+- In the context of interacting with Postgres through an application layer, we can do the same thing: if the application detects an error condition in the middle of a transaction, it can issue a ROLLBACK to abort the whole transaction, and return an error to the user.
