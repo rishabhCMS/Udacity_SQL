@@ -314,3 +314,7 @@ select date_part('year', your_column) from your_table;
 select extract(year from your_column) from your_table;
 ````
 ![quiz img](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DMLImages/quiz.png)
+
+**3. Transactions Data in postgres**
+
+![ACID Image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/transactions/1.png)
