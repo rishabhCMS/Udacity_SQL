@@ -342,3 +342,53 @@ COMMIT;
 - If you are exploring a new database that you're not familiar with and would like to see the effect of running some DML queries, make sure that you \set AUTOCOMMIT off before. You'll be in a much safer position, and any mistakes you make can be manually rolled back using the ROLLBACK command.
 
 - In the context of interacting with Postgres through an application layer, we can do the same thing: if the application detects an error condition in the middle of a transaction, it can issue a ROLLBACK to abort the whole transaction, and return an error to the user.
+
+
+### Exercise Solution
+
+````sql
+\set AUTOCOMMIT off;
+BEGIN;
+-- PART 1: delete entries containing state-name 'CA', 'NY'
+DELETE FROM "user_data" WHERE "state" IN ('CA', 'NY');
+
+-- Part 2: Split the "name" column into first_name and last_name
+    -- SPLIT_PART("col_name", 'delemiter', part of split you want)
+SELECT SPLIT_PART("name", ' ', 1) FROM "user_data"; -- splts the name col and takes the frist entry
+
+-- first create the first_name and last_name columns 
+ALTER TABLE "user_data" 
+    ADD COLUMN "first_name" VARCHAR,
+    ADD COLUMN "last_name" VARCHAR;
+
+-- Now inster the entries in the new column
+UPDATE "user_data" SET
+    "first_name" = SPLIT_PART("name",' ', 1),
+    "last_name" = SPLIT_PART("name", ' ', 2);
+
+-- drop the "name" column now
+ALTER TABLE "user_data", DROP COLUMN "name";
+    
+
+-- Part3 : change from state to state_id
+
+--create the state table
+CREATE TABLE "state_id" (
+    "id" SMALLSERIAL,
+    "state" CHAR(2)
+);
+INSERT INTO "states" ("state")
+  SELECT DISTINCT "state" FROM "user_data";
+  
+ -- state_id column in user_data table
+ALTER TABLE "user_data" ADD COLUMN "state_id" SMALLINT;
+
+-- add state_id to "user_data" table
+UPDATE "user_data" SET "state_id" = (
+  SELECT "s"."id"
+  FROM "states" "s"
+  WHERE "s"."state" = "user_data"."state"
+);
+
+ALTER TABLE "user_data" DROP COLUMN "state";
+````
