@@ -392,3 +392,5 @@ UPDATE "user_data" SET "state_id" = (
 
 ALTER TABLE "user_data" DROP COLUMN "state";
 ````
+
+![Glossary](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/transactionImages/glossary.png)
