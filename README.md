@@ -317,4 +317,4 @@ select extract(year from your_column) from your_table;
 
 **3. Transactions Data in postgres**
 
-![ACID Image](https://github.com/rishabhCMS/Udacity_SQL/tree/master/Images/transactionImages.1.png)
+![ACID Image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/transactionImages/1.png)
