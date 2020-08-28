@@ -318,3 +318,7 @@ select extract(year from your_column) from your_table;
 **3. Transactions Data in postgres**
 
 ![ACID Image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/transactionImages/1.png)
+
+    - A large portion of interactions with a database don't happen with a human using the psql command line, but instead through application code. When interacting with Postgres through its command line, a feature called AUTOCOMMIT is automatically enabled. This feature makes it so that every command you run is wrapped in a transaction. It's possible to turn off this feature by executing \set AUTOCOMMIT off from the psql command line.
+
+    -In the case where AUTOCOMMIT is off, or in the case where the database is being interacted with through application code, starting a transaction is achieved using the START TRANSACTION or BEGIN commands, which are equivalent. Any commands executed after this will be run in isolation from any other transactions. If the application — or the psql program — crashes at any point, all the commands will be discarded. We can also manually discard all the commands executed after starting a transaction by running ROLLBACK. In order to make the changes permanent, one has to execute the command COMMIT or END, which are equivalent.
