@@ -187,7 +187,7 @@ ALTER TABLE "students" ADD COLUMN "email_address" SET DATA TYPE VARCHAR;
 
 ![alt text](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/DDLImages/glossary.png)
     
-### A. Data Manipulation Language (DML) (Lesson 4) 
+### B. Data Manipulation Language (DML) (Lesson 4) 
 
 **1. [Inserting](https://www.postgresql.org/docs/9.6/sql-insert.html) Data in postgres**
 
@@ -394,3 +394,97 @@ ALTER TABLE "user_data" DROP COLUMN "state";
 ````
 
 ![Glossary](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/transactionImages/glossary.png)
+
+
+### C. Consistency with constraints (Lesson 5)
+
+        Source of truth is the place in the Db where you store your final data, it's called the source of truth bc it's a place where you can get accurate and 
+        trust worthy info about your customers and business. So we need to enfore some sort of **constraints** to keep the data consistent
+        
+        Constaints is the process we make sure our data obeys the rules of the DB. Constraints are usually used to enforce business rules.
+        
+**In this lesson we'll see various methods that postgres applies to validate the data and keep the data consistent**
+
+**1. [Unique Constraints](https://www.postgresql.org/docs/9.6/ddl-constraints.html)**
+        a unique constraint is a type of rules that can be applied to a column or set of columns to have uniques entries for each row.
+        an example woulb to the used_id column to have a unique id for each employee.
+        
+````sql
+-- Method 1 for imposeing constraint
+--Step 1: Create a table "users"
+CREATE TABLE "users" (
+    "user_id" SERIAL,
+    "user_name" VARCHAR);
+    
+-- Step 2a: Alter the column "user_name" to hold only unique entries, this produces a
+-- postgres geenrated name for the constraint
+ALTER TABLE "users" ADD UNIQUE ("user_name");
+-- Step 2b: Giving name to the constraint (giving name to a constraint)
+ALTER TABLE "users" ADD CONSTRAINT "unique_user_names" UNIQUE ("user_name");
+
+
+
+-- Step 3: Now insert values into the "user_name" colmn of the table "users"
+INSERT INTO "users" ("user_name") VALUES ('user1');
+INSERT INTO "users" ("user_name") VALUES ('user2');
+
+-- Step 4: This will not be allowed bc if the constraint we imposed for the "user_name" column to hold unique values
+INSERT INTO "users" ("user_name") VALUES ('user1');
+
+-- Step 5: If you want to drop a contraint
+ALTER TABLE "users" DROP CONSTRAINT "unique_username";
+````
+
+````sql
+-- variation for declaring constraint
+
+CREATE TABLE "users" (
+    "user_id" SERIAL,
+    "user_name" VARCHAR UNIQUE);
+    
+CREATE TABLE "users" (
+    "user_id" SERIAL,
+    "user_name" VARCHAR
+    UNIQUE("user_name");
+
+CREATE TABLE "users" (
+    "user_id" SERIAL,
+    "user_name" VARCHAR
+    CONSTRAINT "unique_username" UNIQUE("user_name");
+````
+**1 a. Primary key Constraint**
+        
+        - special unique constraint
+        - UNIQUE + NOT NULL 
+        - One Primary Constraint per table
+        - Primary key Constraints can target one or more columns
+````sql
+-- UNIQUE constraint allows NULL values
+CREATE TABLE "users" (
+    "user_id" SERIAL PRIMARY KEY,
+    "user_name" VARCHAR UNIQUE NOT NULL);
+````
+
+        - Natural key : It is a key that exists in the table and has a business value
+        - Surrogate key is a system geenrated key which uniquely identifies a row but has no business values
+        - [Refere here](https://www.mssqltips.com/sqlservertip/5431/surrogate-key-vs-natural-key-differences-and-when-to-use-in-sql-server/)
+
+**EXERCISE**
+
+````sql
+ALTER TABLE "books" ADD PRIMARY KEY ("id");
+
+ALTER TABLE "books" ADD UNIQUE ("isbn");
+
+ALTER TABLE "authors" ADD PRIMARY KEY ("id");
+
+ALTER TABLE "authors" ADD UNIQUE ("email_address");
+
+ALTER TABLE "book_authors" ADD PRIMARY KEY ("book_id", "author_id");
+
+ALTER TABLE "book_authors" ADD UNIQUE ("book_id", "contribution_rank");
+````
+
+### D. Performance with indexes (Lesson 6)
+
+### E. Intro to Non-Relational Databases (Lesson 7)
