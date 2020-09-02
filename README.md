@@ -484,6 +484,27 @@ ALTER TABLE "book_authors" ADD PRIMARY KEY ("book_id", "author_id");
 
 ALTER TABLE "book_authors" ADD UNIQUE ("book_id", "contribution_rank");
 ````
+**1 b. Foreign key Constraints**
+
+        you need to able to tell postgres about the Foreign Key and its reference to the primary key in the table
+````sql
+-- Foreign key constraint
+
+ALTER TABLE "table_1" 
+    ADD FOREIGN KEY ("col_in_table_1") REFERENCES "table_2" ("col_in_table2");
+--here table_1 has a Foreign key and table_2 has a primary key
+-- Foreign key constraint is going to restrict to values that exist in the other column
+
+
+-- method 2: declaring Foreign key contraint while creating the table
+-- assume "table_1" already exits and "col_1" is the Primary key in that table
+CREATE "table_2" (
+    "col_2" INTEGER REFERENCES "table_1" ("col_1"),
+    FOREIGN KEY("col_3") REFERENCES "table_1" ("col_1") 
+    );
+````
+**1 c. Foreign key Constraints: Modifiers**
+
 
 ### D. Performance with indexes (Lesson 6)
 
