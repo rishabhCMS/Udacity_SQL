@@ -525,7 +525,99 @@ CREATE "table_2" (
     adding ON DELETE SET NULL, delets only the PK but keeps the FK by assigning it NULL value
     
 **EXERCISE**
+        
+````sql
+ALTER TABLE "employees"
+  ADD CONSTRAINT "valid_manager"
+  FOREIGN KEY ("manager_id") REFERENCES "employees" ("id") ON DELETE SET NULL;
 
+ALTER TABLE "employee_projects"
+  ADD CONSTRAINT "valid_employee"
+  FOREIGN KEY ("employee_id") REFERENCES "employees" ("id");
+
+ALTER TABLE "employee_projects"
+  ADD CONSTRAINT "valid_project"
+  FOREIGN KEY ("project_id") REFERENCES "projects" ("id") ON DELETE CASCADE;
+````
+**1 d. [Check Constraints](https://www.postgresql.org/docs/9.6/ddl-constraints.html)**
+
+        CHECK constraints allow us to implement custom business rules at the level of the database. Examples of such rules would be: "a product can't have a negative quantity" or "the discount price should always be less than the regular price".
+        
+        A CHECK constraint can be added either after a table was created, or during table creation. Like all other constraints, it can be added along with the column definition, or along with all the column definitions.
+
+[Check ConstarintVideo](https://youtu.be/R3f_k-7-8EA)
+[Check ConstarintVideo](https://youtu.be/HPGWtXCR-S4)
+
+**Quiz**
+
+        Given a table users with a date_of_birth column of type DATE, write the SQL to add a requirement for users to be at least 18 years old.
+
+````sql
+ALTER TABLE "users"
+  ADD CONSTRAINT "users_must_be_over_18" CHECK (
+    CURRENT_TIMESTAMP - "date_of_birth" > INTERVAL '18 years'
+  );
+````
+
+
+    Unique constraints, which prevent duplicate values for a given column or columns, except for NULL which is allowed to appear many times.
+    Not null constraints, which prevent a column from containing the value NULL.
+    Primary key constraints, which, in addition to being a combination of Unique and Not Null constraints, are special: there can only be one per table, it's the official column or set of columns to uniquely identify a row in that table, and it's the default column(s) that will be used when setting up a foreign key constraint referencing that table.
+    Foreign key constraints, which restrict values in a column to only those values present in another column. They maintain what we called "referential integrity".
+    Check constraints, which can be used to implement custom checks against data that gets added or modified in our tables.
+    
+**Exercise**
+
+    1. Identify the primary key for each table
+    2. Identify the unique constraints necessary for each table
+    3. Identify the foreign key constraints necessary for each table
+    4. In addition to the three types of constraints above, you'll have to implement some custom business rules:
+        - Usernames need to have a minimum of 5 characters
+        - A book's name cannot be empty
+        - A book's name must start with a capital letter
+        - A user's book preferences have to be distinct
+
+````sql
+-- Primary and unique keys
+ALTER TABLE "users"
+  ADD PRIMARY KEY ("id"),
+  ADD UNIQUE ("username"),
+  ADD UNIQUE ("email");
+
+ALTER TABLE "books"
+  ADD PRIMARY KEY ("id"),
+  ADD UNIQUE ("isbn");
+
+ALTER TABLE "user_book_preferences"
+  ADD PRIMARY KEY ("user_id", "book_id");
+
+
+-- Foreign keys
+ALTER TABLE "user_book_preferences"
+  ADD FOREIGN KEY ("user_id") REFERENCES "users",
+  ADD FOREIGN KEY ("book_id") REFERENCES "books";
+
+
+-- Usernames need to have a minimum of 5 characters
+ALTER TABLE "users" ADD CHECK (LENGTH("username") >= 5);
+
+
+-- A book's name cannot be empty
+ALTER TABLE "books" ADD CHECK(LENGTH(TRIM("name")) > 0);
+
+
+-- A book's name must start with a capital letter
+ALTER TABLE "books" ADD CHECK (
+  SUBSTR("name", 1, 1) = UPPER(SUBSTR("name", 1, 1))
+);
+
+
+-- A user's book preferences have to be distinct
+ALTER TABLE "user_book_preferences" ADD UNIQUE ("user_id", "preference");
+````
+[Video Solution](https://youtu.be/hsZs4KUYO5Y)
+
+![alt image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/constraintsImages/glossary.png)
 
 ### D. Performance with indexes (Lesson 6)
 
