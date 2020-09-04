@@ -503,7 +503,28 @@ CREATE "table_2" (
     FOREIGN KEY("col_3") REFERENCES "table_1" ("col_1") 
     );
 ````
-**1 c. Foreign key Constraints: Modifiers**
+**1 c. Foreign key Constraints: [Modifiers](https://www.postgresql.org/docs/9.6/ddl-constraints.html)**
+    Modifiers? : Imagine a FB_users table, which contains user_id and name columns, and a FB_comments table which relates comments to the id.
+    here, the user_id in FB_users is a PK and id in FB_cmments is a FK referenced to user_id in FB_users (FK contraint)
+    
+    1. I want to delete a user from FB_users but I will not be able to bc of the FK constraint
+    2. I want to delete a user from both the tables entirely which again in not allowed by FK constaint
+    
+    So, we use modifiers to over-ride the FK constraints, and then psotgres takes care of this automaticaly for us
+
+````sql
+-- cascade modifier
+CREATE "table_2" (
+    "col_2" INTEGER REFERENCES "table_1" ("col_1"),
+    FOREIGN KEY("col_3") REFERENCES "table_1" ("col_1") ON DELETE CASCADE  --if you don't put ON DELETE CASCADE it menas ON DELETE RESTRICT
+    );
+--whenever an entry in col_1 from table_1 is deleted, cascade that operation to the table_2
+````
+    Adding ON DELETE CASCADE to a foreign key constraint will have the effect that when the referenced data gets deleted, the referencing rows of data will be automatically deleted as well.
+    
+    adding ON DELETE SET NULL, delets only the PK but keeps the FK by assigning it NULL value
+    
+**EXERCISE**
 
 
 ### D. Performance with indexes (Lesson 6)
