@@ -617,7 +617,7 @@ ALTER TABLE "user_book_preferences" ADD UNIQUE ("user_id", "preference");
 ````
 [Video Solution](https://youtu.be/hsZs4KUYO5Y)
 
-![alt image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/constraintsImages/glossary.png)
+![alt image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/constraintsImages/Glossary.png)
 
 ### D. Performance with indexes (Lesson 6)
 
