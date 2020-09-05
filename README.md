@@ -633,6 +633,6 @@ CREATE INDEX "custom_index_name" on "table_name" ("col_name");
 
     indexing can seriously increse the speed by which we can access information from the DB
 
-[](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/indexexample.png)
+![hi](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/indexexample.png)
 
 ### E. Intro to Non-Relational Databases (Lesson 7)
