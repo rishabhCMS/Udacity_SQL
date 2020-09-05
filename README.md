@@ -650,5 +650,15 @@ CREATE INDEX ON table_name (column_to_partially_match XX_PATTERN_OPS);
 
     Follow this link for the full Postgres CREATE INDEX [documentation](https://www.postgresql.org/docs/9.6/sql-createindex.html), keeping in mind that we'll be looking at more parts of this syntax in future videos.
 
+**2. Multi-Coumn Indexing**
+
+![image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/multicolumn.png)
+
+````sql
+CREATE INDEX ON "table" ("col1" ,"col2");
+
+-- a small caveat here is that the index will only work if you wantto search using col1 first
+-- so, you'll have to create a new index if you want too search using col2
+````
 
 ### E. Intro to Non-Relational Databases (Lesson 7)
