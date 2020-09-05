@@ -629,10 +629,26 @@ ALTER TABLE "user_book_preferences" ADD UNIQUE ("user_id", "preference");
 
 -- creating index
 CREATE INDEX "custom_index_name" on "table_name" ("col_name");
+
+-- DROP INDEX "indexname";
 ````
 
     indexing can seriously increse the speed by which we can access information from the DB
 
 ![hi](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/indexexample.png)
+
+[Postgers string functions](https://www.postgresql.org/docs/9.6/functions-string.html)
+
+    Queries of the form WHERE column_name LIKE 'beginning%', called pattern-matching queries, should be able to use the same indexes we've been creating so far. However, since most modern databases are using UTF8 or other multi-byte encodings, it turns out that regular indexes won't permit these kinds of pattern-matching queries. Special operator classes have to be used when creating the indexes in order to allow pattern-matching queries. These are XX_PATTERN_OPS, where XX would be either TEXT or VARCHAR depending on the type of the column you're indexing.
+
+    The complete syntax would be:
+    
+````sql
+CREATE INDEX ON table_name (column_to_partially_match XX_PATTERN_OPS);
+````
+    taking care to use TEXT or VARCHAR appropriately in place of XX.
+
+    Follow this link for the full Postgres CREATE INDEX [documentation](https://www.postgresql.org/docs/9.6/sql-createindex.html), keeping in mind that we'll be looking at more parts of this syntax in future videos.
+
 
 ### E. Intro to Non-Relational Databases (Lesson 7)
