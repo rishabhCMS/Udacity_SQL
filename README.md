@@ -621,4 +621,18 @@ ALTER TABLE "user_book_preferences" ADD UNIQUE ("user_id", "preference");
 
 ### D. Performance with indexes (Lesson 6)
 
+**1. Creating an Index**
+
+````sql
+-- commant to tell how much each query takes to execute
+\timing ON;
+
+-- creating index
+CREATE INDEX "custom_index_name" on "table_name" ("col_name");
+````
+
+    indexing can seriously increse the speed by which we can access information from the DB
+
+[](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/indexexample.png)
+
 ### E. Intro to Non-Relational Databases (Lesson 7)
