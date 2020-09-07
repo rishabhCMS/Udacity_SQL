@@ -4,6 +4,10 @@
 ### 1. [Exploring Deforestation](https://github.com/rishabhCMS/SQL_Deforestation_project):
 Understanding which countries and regions around the world have seen a reduction in forest size over the years
 
+### article for interview
+1. https://towardsdatascience.com/the-practical-sql-guide-i-wish-i-had-when-i-started-data-analysis-537c93907268
+
+
 ## SQL Basics Learned
 
 **1. SQL SELECT, FROM statements, WHERE, HAVING , IN , LIKE clauses, LOGICAL AND, OR operations**
