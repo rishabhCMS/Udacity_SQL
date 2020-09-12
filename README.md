@@ -768,4 +768,39 @@ CREATE INDEX "find_books_by_partial_title" ON "books" (
 --   tagged with it.
 CREATE INDEX "find_books_by_topic" ON "book_topics" ("topic_id");
 ````
+
+**Veryfying Index usage with [explain](https://www.postgresql.org/docs/9.6/sql-explain.html)**
+
+Postgres' timing feature is a very poor debugging tool, it may tell you one of your queries is slow but it will bot give a resaon for it
+So, we can use postgres' EXPLAIN command to get the query plan
+
+````sql
+-- adding EXPLAIN to the beginning of the query will not execute the query but will give you a query plan
+
+EXPLAIN SELECT * FROM "table_name" WHERE "col" = "somehing";
+````
+
+![](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/query.png)
+
+in the image above **Without Indexing**
+
+- seq scan : that postgres performed a squential row by row sacn for this query
+
+- cost : is just a unitless number which should only be used as comparison in the same query after you have made a few changes 
+
+- rows: number of expected rows
+
+- width :
+
+- Postgres goes through every row of data, filters it against any WHERE condition in the query, and adds it to the returned data set.
+
+below **with indexing**
+
+        1. query plan has a tree like structure where we read from the most indented to the least indented
+        
+        2.EXPLAIN can also show us a really interesting and important behaviour: simply having an index on a column of a table does NOT mean that Postgres will use that index when executing a query with a WHERE condition on the indexed column.
+        
+        
+        
+
 ### E. Intro to Non-Relational Databases (Lesson 7)
