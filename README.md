@@ -625,7 +625,7 @@ ALTER TABLE "user_book_preferences" ADD UNIQUE ("user_id", "preference");
 
 ### D. Performance with indexes (Lesson 6)
 
-**1. Creating an Index**
+**1. Creating an Index on column**
 
 ````sql
 -- commant to tell how much each query takes to execute
@@ -641,28 +641,131 @@ CREATE INDEX "custom_index_name" on "table_name" ("col_name");
 
 ![hi](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/indexexample.png)
 
+
+**2. Creating an Index on expressions**
+
+````sql
+-- the following with take longer because now it has to also evaluate the expression
+SELECT * FROM table_name WHERE
+    REGEXP_REPLACE("col_name" regexpression) = "123456";
+    
+-- creating index on expressions
+CREATE INDEX "index_name" ON "table_name" (
+     REGEXP_REPLACE("col_name" regexpression);
+     
+-- now you can search for the required value using select , this will be much faster
+-- bc now we have created a separate data structure
+SELECT * FROM table_name WHERE
+    REGEXP_REPLACE("col_name" regexpression) = "123456";
+````
+
 [Postgers string functions](https://www.postgresql.org/docs/9.6/functions-string.html)
 
-    Queries of the form WHERE column_name LIKE 'beginning%', called pattern-matching queries, should be able to use the same indexes we've been creating so far. However, since most modern databases are using UTF8 or other multi-byte encodings, it turns out that regular indexes won't permit these kinds of pattern-matching queries. Special operator classes have to be used when creating the indexes in order to allow pattern-matching queries. These are XX_PATTERN_OPS, where XX would be either TEXT or VARCHAR depending on the type of the column you're indexing.
+**3. Drop Index**
 
-    The complete syntax would be:
-    
 ````sql
-CREATE INDEX ON table_name (column_to_partially_match XX_PATTERN_OPS);
+DROP INDEX index_name
 ````
-    taking care to use TEXT or VARCHAR appropriately in place of XX.
 
+**4. Pattern Matching**
+
+````sql
+SELECT * FROM table_name WHERE "col_name" LIKE 'rish%'; -- col_name starts with 'rish'
+
+--Special operator classes have to be used when creating the indexes in order to allow pattern-matching queries
+CREATE INDEX ON table_name (column_to_partially_match XX_PATTERN_OPS);
+
+-- you can replace 'XX' with TEXT or VARCHAR depending on your pattern requirement
+````
     Follow this link for the full Postgres CREATE INDEX [documentation](https://www.postgresql.org/docs/9.6/sql-createindex.html), keeping in mind that we'll be looking at more parts of this syntax in future videos.
-
-**2. Multi-Coumn Indexing**
+    
+    
+**5. Multi-Column Indexing**
 
 ![image](https://github.com/rishabhCMS/Udacity_SQL/blob/master/Images/IndexImages/multicolumn.png)
 
 ````sql
 CREATE INDEX ON "table" ("col1" ,"col2");
 
+SELECT * FROM table WHERE
+    "col1" = "rishabh" AND 
+    "col2" = "uniyal"
+
 -- a small caveat here is that the index will only work if you wantto search using col1 first
 -- so, you'll have to create a new index if you want too search using col2
 ````
+**5. Unique Indexing**
 
+````sql
+-- creating unique constrains is equivalent to creating unique index
+CREATE TABLE "users" (
+    "id" SERIAL PRIMARY KEY,
+    "username" VARCHAR UNIQUE
+);
+
+CREATE UNIQUE INDEX "unique_usr_name" ON "users" (LOWER("username"));    
+````
+**Exercise**
+
+Given the business requirements below, add the necessary constraints and indexes to support each use-case:
+
+We need to be able to quickly find books and authors by their IDs.
+
+We need to be able to quickly tell which books an author has written.
+
+We need to be able to quickly find a book by its ISBN #.
+
+We need to be able to quickly search for books by their titles in a case-insensitive way, even if the title is partial. For example, searching for "the" should return "The Lord of the Rings".
+
+For a given book, we need to be able to quickly find all the topics associated to it.
+
+For a given topic, we need to be able to quickly find all the books tagged with it.
+
+**Exercise Solution**
+
+````sql
+-- Constraints
+ALTER TABLE "authors"
+  ADD PRIMARY KEY ("id");
+
+ALTER TABLE "topics"
+  ADD PRIMARY KEY("id"),
+  ADD UNIQUE ("name"),
+  ALTER COLUMN "name" SET NOT NULL;
+
+ALTER TABLE "books"
+  ADD PRIMARY KEY ("id"),
+  ADD UNIQUE ("isbn"),
+  ADD FOREIGN KEY ("author_id") REFERENCES "authors" ("id");
+
+ALTER TABLE "book_topics"
+  ADD PRIMARY KEY ("book_id", "topic_id");
+-- or ("topic_id", "book_id") instead...?
+
+-- We need to be able to quickly find books and authors by their IDs.
+-- Already taken care of by primary keys
+
+-- We need to be able to quickly tell which books an author has written.
+CREATE INDEX "find_books_by_author" ON "books" ("author_id");
+
+-- We need to be able to quickly find a book by its ISBN #.
+-- The unique constraint on ISBN already takes care of that 
+--   by adding a unique index
+
+-- We need to be able to quickly search for books by their titles
+--   in a case-insensitive way, even if the title is partial. For example, 
+--   searching for "the" should return "The Lord of the rings".
+CREATE INDEX "find_books_by_partial_title" ON "books" (
+  LOWER("title") VARCHAR_PATTERN_OPS
+);
+
+-- For a given book, we need to be able to quickly find all the topics 
+--   associated with it.
+-- The primary key on the book_topics table already takes care of that 
+--   since there's an underlying unique index
+
+-- For a given topic, we need to be able to quickly find all the books 
+--   tagged with it.
+CREATE INDEX "find_books_by_topic" ON "book_topics" ("topic_id");
+````
 ### E. Intro to Non-Relational Databases (Lesson 7)
